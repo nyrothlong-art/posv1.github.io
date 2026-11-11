@@ -1,0 +1,34 @@
+# Render Blueprint — Backend ប៉ុណ្ណោះ (Frontend នៅលើ GitHub Pages)
+# ចំណាំ: SQLite ត្រូវការ Disk ថេរ (Persistent Disk) ដែលមានតែលើ Plan បង់ប្រាក់របស់ Render។
+services:
+  - type: web
+    name: pos-api
+    runtime: node
+    rootDir: server
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    disk:
+      name: pos-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DB_PATH
+        value: /var/data/pos.db
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: GMAIL_USER
+        sync: false
+      - key: GMAIL_APP_PASSWORD
+        sync: false
+      - key: NOTIFY_EMAIL_TO
+        sync: false
